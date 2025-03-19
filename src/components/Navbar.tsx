@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-
+const handleClick = () => {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'button_click',
+    category: 'User Interaction',
+    action: 'click',
+    label: 'Bouton Reservation'
+  });
+};
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,7 +51,7 @@ const Navbar = () => {
             <Link to="/Equipement" className="block px-3 py-2 text-gray-700">Équipement</Link>
             <Link to="/contact" className="block px-3 py-2 text-gray-700">Contact</Link>
             <Link to="/login" className="text-gray-700 hover:text-gray-900">Login admin</Link>
-            <Link to="/book-now" className="block px-3 py-2 bg-gold-600 text-white rounded-md">Réservez maintenant</Link>
+            <Link to="/book-now" className="block px-3 py-2 bg-gold-600 text-white rounded-md" onClick={handleClick}>Réservez maintenant</Link>
           </div>
         </div>
       )}
