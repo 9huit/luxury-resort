@@ -8,7 +8,7 @@ const port = 3001;
 
 // Permettre CORS pour ton domaine spécifique (remplace par l'URL de ton front-end)
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://luxury-resort-git-main-9huits-projects.vercel.app'] // Par défaut, Vite est sur http://localhost:3000
+  origin: 'https://luxury-resort-git-main-9huits-projects.vercel.app' // Par défaut, Vite est sur http://localhost:3000
 }));
 
 // Fonction pour authentifier Google Analytics
