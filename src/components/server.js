@@ -26,7 +26,7 @@ async function authenticateGoogleAnalytics() {
 }
 
 // Route pour récupérer les statistiques
-app.get('/analytics', async (req, res) => {
+app.get('/api/analytics', async (req, res) => {
   try {
     const analytics = await authenticateGoogleAnalytics();
     const response = await analytics.properties.runReport({
