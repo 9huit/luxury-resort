@@ -2,6 +2,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
+const handleClick = () => {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'button_click',
+    category: 'User Interaction',
+    action: 'click',
+    label: 'Bouton Reservation'
+  });
+};
 const Rooms = () => {
   return (
     <>
@@ -27,7 +36,7 @@ const Rooms = () => {
                 <p className="text-gray-600 mb-4">{room.description}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-semibold">{room.price}</span>
-                  <button className="bg-gold-600 text-white px-4 py-2 rounded">Réservez maintenant</button>
+                  <button className="bg-gold-600 text-white px-4 py-2 rounded" onClick={handleClick} >Réservez maintenant</button>
                 </div>
               </div>
             </motion.div>
