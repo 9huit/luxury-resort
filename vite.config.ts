@@ -9,6 +9,7 @@ export default defineConfig({
     polyfillNode() // Ajouter le plugin de polyfill
   ],
   build: {
+    sourcemap: false, // Désactiver les sourcemaps
     rollupOptions: {
       external: [
         'path', 'fs', 'url', 'stream', 'http2', 'zlib', 'querystring',
