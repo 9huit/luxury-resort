@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
-import getGA4AnalyticsData  from '../components/Analytics';
+import Analytics from '../components/Analytics';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -12,20 +12,7 @@ const Admin = () => {
     logout();
     navigate('/login');
   };
-  const [data, setData] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const analyticsData = await getGA4AnalyticsData();
-      setData(analyticsData);
-    };
-
-    fetchData();
-  }, []);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
   return (
     <>
       <Helmet>
@@ -46,23 +33,7 @@ const Admin = () => {
         
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-serif mb-6">Présentation d’Analytics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-//       <div className="bg-white p-6 rounded-lg shadow">
-//         <h3 className="text-lg font-semibold text-gray-700">Vue de la page</h3>
-//         <p className="text-3xl font-bold text-gold-600">{data.rows?.[0]?.[1]}</p>
-//       </div>
-      
-//       <div className="bg-white p-6 rounded-lg shadow">
-//         <h3 className="text-lg font-semibold text-gray-700">Sessions</h3>
-//         <p className="text-3xl font-bold text-gold-600">{data.rows?.[0]?.[0]}</p>
-//       </div>
-      
-
-//       <div className="bg-white p-6 rounded-lg shadow">
-//         <h3 className="text-lg font-semibold text-gray-700">Evenement (Bouton reserver)</h3>
-//         <p className="text-3xl font-bold text-gold-600">{data.rows?.[0]?.[2]}</p>
-//       </div>
-//     </div>
+          <Analytics />
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-6">
