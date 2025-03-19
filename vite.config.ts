@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import polyfillNode from 'rollup-plugin-polyfill-node'; // Ajout du polyfill
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    polyfillNode() // Ajouter le plugin de polyfill
+  ],
   build: {
     rollupOptions: {
       external: [
