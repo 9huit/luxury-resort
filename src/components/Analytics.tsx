@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 interface AnalyticsData {
   pageViews: number;
   sessions: number;
   avgSessionDuration: string;
   bounceRate: string;
-  activeUsers: number;
 }
 
 const Analytics = () => {
@@ -14,66 +14,44 @@ const Analytics = () => {
     sessions: 0,
     avgSessionDuration: '0:00',
     bounceRate: '0%',
-    activeUsers: 0
   });
 
   useEffect(() => {
-    // Push analytics event to dataLayer
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: 'adminPageView',
-        page: {
-          path: window.location.pathname,
-          title: 'Admin Dashboard'
+    axios.get('http://localhost:3001/analytics')
+      .then((res) => {
+        if (res.data && res.data.rows) {
+          const metrics = res.data.rows[0].metricValues;
+          setData({
+            pageViews: parseInt(metrics[0]?.value ?? '0'),
+            sessions: parseInt(metrics[1]?.value ?? '0'),
+            avgSessionDuration: metrics[2]?.value ?? '0:00',
+            bounceRate: metrics[3]?.value + '%',
+          });
         }
-      });
-    }
-
-    // Set up event listener for GTM events
-    const handleGTMEvent = (event: any) => {
-      if (event.data && event.data.type === 'gtm.analytics') {
-        setData(prevData => ({
-          ...prevData,
-          ...event.data.metrics
-        }));
-      }
-    };
-
-    window.addEventListener('message', handleGTMEvent);
-
-    return () => {
-      window.removeEventListener('message', handleGTMEvent);
-    };
+      })
+      .catch((err) => console.error('Erreur récupération analytics:', err));
   }, []);
 
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Page Views</h3>
-          <p className="text-3xl font-bold text-gold-600">{data.pageViews}</p>
-        </div>
-        
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Sessions</h3>
-          <p className="text-3xl font-bold text-gold-600">{data.sessions}</p>
-        </div>
-        
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Avg. Session Duration</h3>
-          <p className="text-3xl font-bold text-gold-600">{data.avgSessionDuration}</p>
-        </div>
-        
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-semibold text-gray-700">Bounce Rate</h3>
-          <p className="text-3xl font-bold text-gold-600">{data.bounceRate}</p>
-        </div>
-      </div>
-
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-semibold text-gray-700">Active Users</h3>
-        <p className="text-3xl font-bold text-gold-600">{data.activeUsers}</p>
-        <p className="text-sm text-gray-500 mt-2">Updated every minute</p>
+        <h3 className="text-lg font-semibold text-gray-700">Vue de la page</h3>
+        <p className="text-3xl font-bold text-gold-600">{data.pageViews}</p>
+      </div>
+      
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h3 className="text-lg font-semibold text-gray-700">Sessions</h3>
+        <p className="text-3xl font-bold text-gold-600">{data.sessions}</p>
+      </div>
+      
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h3 className="text-lg font-semibold text-gray-700">Durée de la session</h3>
+        <p className="text-3xl font-bold text-gold-600">{data.avgSessionDuration}</p>
+      </div>
+      
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h3 className="text-lg font-semibold text-gray-700">Taux de rebond</h3>
+        <p className="text-3xl font-bold text-gold-600">{data.bounceRate}</p>
       </div>
     </div>
   );
