@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { google } from 'googleapis';
+import * as path from 'path';
 
 async function getGA4AnalyticsData() {
   const analyticsdata = google.analyticsdata('v1beta');
 
+  // Remplacez le chemin par l'endroit où vous avez placé votre fichier JSON
   const authClient = await google.auth.getClient({
+    keyFile: path.join(__dirname, './luxury-resort.json'),  // Mettez le bon chemin vers votre fichier JSON
     scopes: ['https://www.googleapis.com/auth/analytics.readonly'],
   });
 
