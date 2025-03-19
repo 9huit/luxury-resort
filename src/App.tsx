@@ -9,6 +9,7 @@ import Equipement from './pages/Equipement';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
+import Analytics from './components/Analytics';
 import ProtectedRoute from './components/ProtectedRoute';
 import Restauration from './pages/Restauration';
 
@@ -26,6 +27,7 @@ function App() {
               <Route path="/Equipement" element={<Equipement />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/Analytics" element={<Analytics />} />
               <Route 
                 path="/admin" 
                 element={
