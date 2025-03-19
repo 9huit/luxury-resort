@@ -18,18 +18,18 @@ const Analytics = () => {
 
   useEffect(() => {
     axios.get('https://luxury-resort-git-main-9huits-projects.vercel.app/api/analytics')
-      .then((res) => {
-        if (res.data && res.data.rows) {
-          const metrics = res.data.rows[0].metricValues;
-          setData({
-            pageViews: parseInt(metrics[0]?.value ?? '0'),
-            sessions: parseInt(metrics[1]?.value ?? '0'),
-            avgSessionDuration: metrics[2]?.value ?? '0:00',
-            bounceRate: metrics[3]?.value + '%',
-          });
-        }
-      })
-      .catch((err) => console.error('Erreur récupération analytics:', err));
+    .then((res) => {
+      if (res.data && res.data.rows) {
+        const metrics = res.data.rows[0].metricValues;
+        setData({
+          pageViews: parseInt(metrics[0]?.value ?? '0'),
+          sessions: parseInt(metrics[1]?.value ?? '0'),
+          avgSessionDuration: metrics[2]?.value ?? '0:00',
+          bounceRate: metrics[3]?.value + '%',
+        });
+      }
+    })
+    .catch((err) => console.error('Erreur récupération analytics:', err));
   }, []);
 
   return (

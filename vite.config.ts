@@ -7,4 +7,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    proxy: {
+      '/api': 'https://luxury-resort-git-main-9huits-projects.vercel.app', // Rediriger les requêtes vers ton back-end Express
+    }
+  }
 });

@@ -1,9 +1,15 @@
 import express from 'express';
 import { google } from 'googleapis';
 import { readFile } from 'fs/promises';
+import cors from 'cors';
 
 const app = express();
 const port = 3001;
+
+// Permettre CORS pour ton domaine spécifique (remplace par l'URL de ton front-end)
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://luxury-resort-git-main-9huits-projects.vercel.app'] // Par défaut, Vite est sur http://localhost:3000
+}));
 
 // Fonction pour authentifier Google Analytics
 async function authenticateGoogleAnalytics() {
@@ -24,7 +30,7 @@ app.get('/analytics', async (req, res) => {
   try {
     const analytics = await authenticateGoogleAnalytics();
     const response = await analytics.properties.runReport({
-      property: 'properties/XXXXX', // Remplace "XXXXX" par ton Property ID (Google Analytics)
+      property: 'properties/482432448', // Remplace "XXXXX" par ton Property ID (Google Analytics)
       requestBody: {
         dateRanges: [{ startDate: '7daysAgo', endDate: 'today' }],
         metrics: [
