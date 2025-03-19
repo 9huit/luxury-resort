@@ -17,7 +17,7 @@ const Analytics = () => {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:3001/analytics')
+    axios.get('https://luxury-resort-git-main-9huits-projects.vercel.app/Analytics')
     .then((res) => {
       if (res.data && res.data.rows) {
         const metrics = res.data.rows[0].metricValues;

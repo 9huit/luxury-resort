@@ -9,7 +9,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3001', // Rediriger les requêtes vers ton back-end Express
+      '/Analytics': 'https://luxury-resort-git-main-9huits-projects.vercel.app', // Rediriger les requêtes vers ton back-end Express
     }
   }
 });
